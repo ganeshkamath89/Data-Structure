@@ -1,0 +1,67 @@
+
+bool ArePair(char opening, char closing){
+	if(opening == '(' && closing == ')') return true;
+	else if(opening == '{' && closing == '}') return true;
+	else if(opening == '[' && closing == ']') return true;
+	else return false;
+}
+
+bool AreParanthesisBalanced(string exp){
+	stack<char> S;
+	for(int i = 0; i< exp.length; i++){
+		if(exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
+			S.push(exp[i]);
+		else if(exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
+			if(S.empty() || !ArePair(S.top(), exp[i]))
+				return false;
+			else
+				S.pop();
+		}
+	}
+	return S.empty() ? true : false;
+}
+
+`````````````````````````
+binarySearch(int *A, int n, int x){
+	low = 0;
+	high = n-1;
+	while(high>low){
+		mid = (low + high)/2;
+		if(x==A[mid])
+			return mid;
+		else if (x<A[mid])
+			high = mid - 1;
+		else
+			low = mid + 1;
+	}
+	return -1;
+}
+
+````````````````````````````````
+void LevelOrder(Node *root){
+	if(root == NULL) return;
+	
+	queue<Node*> Q;
+	Q.push(root);
+	
+	while(!Q.empty()){
+		Node* current = Q.front();
+		Q.pop();
+		
+		cout << current->data << " ";
+		if(current->left != NULL) Q.push(current->left);
+		if(current->right != NULL) Q.push(current->right);
+	}
+}
+
+Node* Insert(Node *root, char data){
+	if(root == NULL){
+		root = new Node();
+		root->data = data;
+		root->left = root->right = NULL;
+	}
+	else if (root->data > data) root->left = Insert(root->left, data);
+	else root->right = Insert(root->right, data);
+}
+
+`````````````````````````````````
